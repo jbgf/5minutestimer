@@ -30,7 +30,7 @@ export default function Timer() {
        
        onClick={() => start()}
      >
-       enter to restart
+       press enter to restart
        
      </div>
 
