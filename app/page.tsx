@@ -9,6 +9,6 @@ dayjs.extend(duration);
 
 export default function Page() {
   return (
-    <Template />
+    <Template isHomePage />
   );
 }
