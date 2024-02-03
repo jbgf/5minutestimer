@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
-import Template from "@/app/page";
+
 import { Metadata } from "next";
 import AudioPlayer from "../components/audio-player";
 import { createRef, useRef } from "react";
+import Template from "../server-component/template";
 dayjs.extend(duration);
 
 export const metadata: Metadata = {
@@ -12,10 +13,10 @@ export const metadata: Metadata = {
 }
 
 export default function FiveMinuteMeditationTimer() {
-  const playerRef = createRef<HTMLDivElement>()
+  
   return (
-    <>
-      <Template type="meditation" autoStart={false} />
-    </>
+    
+      <Template type="meditation" autoStart={false} src={'/audios/waves.m4a'} />
+    
   );
 }

@@ -11,6 +11,7 @@ dayjs.extend(duration);
 interface IProps {
   autoStart?: boolean;
   onClickStart?: () => void;
+  src?: string;
 }
 
 
@@ -18,7 +19,7 @@ export default function Timer(props: IProps) {
   const {isCountingDown, start, remainingSeconds} = useCountDown({autoStart: props.autoStart, totalSeconds: 5*60/* 1 */});
   const [inited, setInited] = useState(false);
 
-  const playRef = useRef<AudioPlayerRef>()
+  const playRef = useRef<AudioPlayerRef | null>(null)
   const startEnterListenner = useMemoizedFn((e) => {
     if (isCountingDown) return;
     if (e.key === 'Enter') {
@@ -45,7 +46,7 @@ export default function Timer(props: IProps) {
   // const 
   return (
       <>
-      <AudioPlayer ref={playRef} src={'/audios/waves.m4a'} />
+      {!!props.src && <AudioPlayer ref={playRef} src={props.src} />} 
       { 
       (isCountingDown 
         ? <div className="text-9xl">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>

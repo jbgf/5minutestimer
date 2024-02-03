@@ -8,7 +8,7 @@ function usePersistFn<T extends noop>(fn: T) {
 
   const persistFn = useRef<T>();
   if (!persistFn.current) {
-    persistFn.current = function (...args) {
+    persistFn.current = function (this: void, ...args: any[]) {
       return fnRef.current!.apply(this, args);
     } as T;
   }
