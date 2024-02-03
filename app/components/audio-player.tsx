@@ -1,16 +1,33 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import { BellSlashIcon } from '@heroicons/react/20/solid';
+import { BellAlertIcon } from '@heroicons/react/24/solid';
+import React, { useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import usePersistFn from '../hooks/usePersistFn';
+import { AudioPlayerRef } from '../type';
 
 type AudioPlayerProps = {
   src: string;
 };
+const MUTE_KEY = 'MUTE_TEST'
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
-  const [isMuted, setIsMuted] = useState<boolean>(false);
+
+const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) => {
+  const [isMuted, setIsMuted] = useState<boolean>();
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
   const [gainNode, setGainNode] = useState<GainNode | null>(null);
 
+  const startPlay = () => {
+    startAudio()
+  }
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      startPlay
+    }),
+    
+  )
   // 初始化AudioContext和GainNode
   useEffect(() => {
     const ac = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -20,13 +37,23 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
     setGainNode(gn);
 
     // 加载音频
-    loadAudio(src, ac);
+    loadAudio(props.src, ac);
 
     // 组件卸载时清理资源
     return () => {
       ac.close();
     };
-  }, [src]);
+  }, [props.src]);
+  // 静音
+  useEffect(() => {
+    if (!!localStorage.getItem(MUTE_KEY)) setIsMuted(true)
+  }, [])
+  // setting muted state
+  useEffect(() => {
+    if (gainNode) {
+      gainNode.gain.value = isMuted ? 0 : 1;
+    }
+  }, [gainNode, isMuted])
 
   // 加载音频文件
   const loadAudio = async (url: string, ac: AudioContext) => {
@@ -40,44 +67,57 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
     }
   };
 
-  // 播放音频
   const playAudio = () => {
     if (audioContext && audioBuffer && gainNode) {
       const source = audioContext.createBufferSource();
       source.buffer = audioBuffer;
       source.connect(gainNode);
+      source.loop = false; 
       source.start(0);
+
+      source.onended = () => {
+        playAudio();
+      };
     }
   };
 
   // 处理静音和取消静音
   const toggleMute = () => {
     if (gainNode) {
-      gainNode.gain.value = isMuted ? 1 : 0;
-      setIsMuted(!isMuted);
+      const newMutedState = !isMuted;
+      setIsMuted(newMutedState);
+      localStorage.setItem(MUTE_KEY, newMutedState ? `1`: '');
     }
   };
-
+  /** 播放音频文件 */
+  const startAudio = usePersistFn(() => {
+    if (audioContext?.state === 'suspended') {
+      audioContext.resume().then(() => {
+        playAudio();
+      });
+    }
+  });
+ 
+  const startAudioOnEnter = usePersistFn((e: KeyboardEvent) => {
+    if (e.key === 'Enter') startAudio()
+  })
   // 用户交互启动音频
   useEffect(() => {
-    const startAudio = () => {
-      if (audioContext?.state === 'suspended') {
-        audioContext.resume().then(() => {
-          playAudio();
-        });
-      }
-    };
-    document.addEventListener('click', startAudio);
+    
+    document.addEventListener('keydown', startAudioOnEnter);
     return () => {
-      document.removeEventListener('click', startAudio);
+      document.removeEventListener('keydown', startAudioOnEnter);
+
     };
   }, [audioContext, audioBuffer, gainNode]);
-
+  const ICON = useMemo(() => isMuted ? BellSlashIcon : BellAlertIcon, [isMuted])
   return (
-    <div>
-      <button onClick={toggleMute}>{isMuted ? 'Unmute' : 'Mute'}</button>
+    <div className='fixed z-50 left-4 top-8'>
+      
+
+      <button onClick={toggleMute}><ICON className="h-6 w-6 "/></button>
     </div>
   );
-};
-
+});
+AudioPlayer.displayName = 'AudioPlayer';
 export default AudioPlayer;

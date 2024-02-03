@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 
 interface IUseCountDown {
   totalSeconds?: number;
+  autoStart?: boolean
 }
 export function useCountDown(props: IUseCountDown = {}) {
   const {  totalSeconds = 60 } = props;
 
-  const [isCountingDown, setIsCountingDown] = useState(true);
+  const [isCountingDown, setIsCountingDown] = useState(props.autoStart ?? true);
   const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
   useEffect(() => {
     if (!isCountingDown) {

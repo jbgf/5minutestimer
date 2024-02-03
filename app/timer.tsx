@@ -1,38 +1,66 @@
 'use client';
 import { useCountDown } from "./util";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
 import { useMemoizedFn } from "ahooks";
+import AudioPlayer from "./components/audio-player";
+import { AudioPlayerRef } from "./type";
+
 dayjs.extend(duration);
-export default function Timer() {
-  const {isCountingDown, start, remainingSeconds} = useCountDown({totalSeconds: 5*60});
-  const listenner = useMemoizedFn((e) => {
+interface IProps {
+  autoStart?: boolean;
+  onClickStart?: () => void;
+}
+
+
+export default function Timer(props: IProps) {
+  const {isCountingDown, start, remainingSeconds} = useCountDown({autoStart: props.autoStart, totalSeconds: 5*60/* 1 */});
+  const [inited, setInited] = useState(false);
+
+  const playRef = useRef<AudioPlayerRef>()
+  const startEnterListenner = useMemoizedFn((e) => {
     if (isCountingDown) return;
     if (e.key === 'Enter') {
       start()
     }
   })
-  useEffect(() => {
+  const autoStart = () => {
     start()
-    document.addEventListener('keydown', listenner)
+    setInited(true)
+  }
+  const clickStart = () => {
+    start()
+    setInited(true)
+    props.onClickStart?.()
+    playRef?.current?.startPlay()
+  }
+  useEffect(() => {
+    if (props.autoStart !== false) autoStart()
+    document.addEventListener('keydown', startEnterListenner)
     return () => {
-      document.removeEventListener('keydown', listenner)
+      document.removeEventListener('keydown', startEnterListenner)
     }
   }, [])
   // const 
   return (
-    
-       isCountingDown ? <div className="text-9xl">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
-       : <div
-       className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0 text-3xl z-[1]"
+      <>
+      <AudioPlayer ref={playRef} src={'/audios/waves.m4a'} />
+      { 
+      (isCountingDown 
+        ? <div className="text-9xl">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
+        : <div
+       id="start"
+       className="flex place-items-center gap-2 p-8 lg:p-0 text-3xl cursor-pointer z-0"
        
        
-       onClick={() => start()}
+       onClick={clickStart}
      >
-       press enter to restart
+       {`press enter to ${inited ? `restart` : 'start'}`}
        
-     </div>
-
+     </div>)
+}
+      </>
+      
   );
 }
