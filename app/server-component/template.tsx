@@ -3,6 +3,7 @@ import duration from 'dayjs/plugin/duration'
 import Timer from "../timer";
 import { HomeModernIcon } from "@heroicons/react/24/solid";
 import HomeIcon from "../components/home-icon";
+import Link from "next/link";
 dayjs.extend(duration);
 
 interface IProps {
@@ -20,9 +21,9 @@ export default function Template(props: IProps) {
           {`5 minute${props.type ? ` ${props.type}` : ''} timer`}
         </h1>
         {!props.isHomePage 
-          ? <span className="flex items-center cursor-pointer"><HomeIcon /> <a className="whitespace-nowrap hover:text-sky-500" href="/" target="_blank" title="back to home page">5 minute timer</a></span> 
+          ? <span className="flex items-center cursor-pointer"><HomeIcon /> <Link className="whitespace-nowrap hover:text-sky-500" href="/" title="back to home page">5 minute timer</Link></span> 
         :  <div className='fixed z-50 right-4 top-8 flex items-center cursor-pointer'>
-              <HomeIcon url="/5-minute-meditation-timer" /><a className="hover:text-sky-500" href="/5-minute-meditation-timer" target="_blank" title="go to 5 minute meditation timer" >5 minute meditation timer</a>
+              <HomeIcon url="/5-minute-meditation-timer" /><Link className="hover:text-sky-500" href="/5-minute-meditation-timer" title="go to 5 minute meditation timer" >5 minute meditation timer</Link>
             </div>}
       </div>
 
