@@ -45,23 +45,19 @@ export default function Timer(props: IProps) {
   }, [])
   // const 
   return (
-      <>
+      <div>
       {!!props.src && <AudioPlayer ref={playRef} src={props.src} />} 
-      { 
-      (isCountingDown 
-        ? <div className="text-9xl">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
-        : <div
-       id="start"
-       className="flex place-items-center gap-2 p-8 lg:p-0 text-3xl cursor-pointer z-0"
        
-       
-       onClick={clickStart}
-     >
-       {`press enter to ${inited ? `restart` : 'start'}`}
-       
-     </div>)
-}
-      </>
+      <div className="text-9xl">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
+      {!isCountingDown && <div
+        id="start"
+        className="flex place-items-center gap-2 p-8 lg:p-0 text-3xl cursor-pointer relative z-10 justify-center"
+        onClick={clickStart}
+      >
+        {`press enter to ${inited ? `restart` : 'start'}`}
+      </div>}
+
+      </div>
       
   );
 }
