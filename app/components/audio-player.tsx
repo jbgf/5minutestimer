@@ -8,6 +8,8 @@ import { Spin } from 'antd';
 
 type AudioPlayerProps = {
   src: string;
+  isAudioReady: boolean;
+  setIsAudioReady: (val: boolean) => void;
 };
 const MUTE_KEY = 'MUTE_TEST'
 
@@ -17,7 +19,7 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
   const [gainNode, setGainNode] = useState<GainNode | null>(null);
-  const [isAudioReady, setIsAudioReady] = useState(false);
+  
   const startPlay = () => {
     startAudio()
   }
@@ -63,7 +65,7 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
       const arrayBuffer = await response.arrayBuffer();
       const audioData = await ac.decodeAudioData(arrayBuffer);
       setAudioBuffer(audioData);
-      setIsAudioReady(true); // 设置音频准备就绪状态
+      props.setIsAudioReady(true); // 设置音频准备就绪状态
     } catch (error) {
       console.error("加载音频失败:", error);
     }
@@ -116,7 +118,7 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
     <div className='fixed z-50 left-4 top-8'>
       
 
-      <Spin spinning={!isAudioReady}><button onClick={toggleMute}><ICON className="h-6 w-6 "/></button></Spin>
+      <Spin spinning={!props.isAudioReady}><button onClick={toggleMute}><ICON className="h-6 w-6 "/></button></Spin>
     </div>
   );
 });
