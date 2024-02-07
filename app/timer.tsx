@@ -6,6 +6,7 @@ import duration from 'dayjs/plugin/duration'
 import { useMemoizedFn } from "ahooks";
 import AudioPlayer from "./components/audio-player";
 import { AudioPlayerRef } from "./type";
+import { CaretRightOutlined, PauseOutlined } from "@ant-design/icons";
 
 dayjs.extend(duration);
 interface IProps {
@@ -16,7 +17,7 @@ interface IProps {
 
 
 export default function Timer(props: IProps) {
-  const {isCountingDown, start, remainingSeconds} = useCountDown({autoStart: props.autoStart, totalSeconds: 5*60/* 1 */});
+  const {isCountingDown, pause, start, remainingSeconds} = useCountDown({autoStart: props.autoStart, totalSeconds: 5*60/* 1 */});
   const [inited, setInited] = useState(false);
 
   const playRef = useRef<AudioPlayerRef | null>(null)
@@ -46,17 +47,9 @@ export default function Timer(props: IProps) {
   // const 
   return (
       <div>
-      {!!props.src && <AudioPlayer ref={playRef} src={props.src} />} 
-       
-      <div className="text-9xl">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
-      {!isCountingDown && <div
-        id="start"
-        className="flex place-items-center gap-2 p-8 lg:p-0 text-3xl cursor-pointer relative z-10 justify-center"
-        onClick={clickStart}
-      >
-        {`press enter to ${inited ? `restart` : 'start'}`}
-      </div>}
-
+        {!!props.src && <AudioPlayer ref={playRef} src={props.src} />} 
+        <div className="text-8xl border-indigo-950 border-4 rounded-md flex items-center w-96 pl-14">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
+        <div className="text-6xl relative z-10 text-center" >{!isCountingDown ? <CaretRightOutlined onClick={clickStart} title={`press enter to ${inited ? `restart` : 'start'}`} /> : <PauseOutlined onClick={pause} /> }</div>
       </div>
       
   );

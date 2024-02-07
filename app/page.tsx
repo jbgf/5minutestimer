@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useCountDown } from "./util";
 import { useEffect } from "react";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'

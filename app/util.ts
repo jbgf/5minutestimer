@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import usePersistFn from "./hooks/usePersistFn";
 
 interface IUseCountDown {
   totalSeconds?: number;
@@ -9,32 +10,38 @@ export function useCountDown(props: IUseCountDown = {}) {
 
   const [isCountingDown, setIsCountingDown] = useState(props.autoStart ?? true);
   const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
+  const count = usePersistFn(() => {
+    if (!isCountingDown) return;
+    if (remainingSeconds >= 1) {
+      setRemainingSeconds(remainingSeconds - 1);
+    } else {
+      setIsCountingDown(false);
+    }
+  })
   useEffect(() => {
     if (!isCountingDown) {
       return;
     }
 
     setTimeout(() => {
-      if (remainingSeconds >= 1) {
-        setRemainingSeconds(remainingSeconds - 1);
-      } else {
-        // setRemainingSeconds(0);
-        setIsCountingDown(false);
-      }
+      count();
     }, 1000);
   }, [remainingSeconds, isCountingDown]);
 
   
 
   function startCountDown() {
-    setRemainingSeconds(totalSeconds);
+    setRemainingSeconds(remainingSeconds || totalSeconds);
     setIsCountingDown(true);
   }
-
+  function pause () {
+    setIsCountingDown(false)
+  }
   return {
     isCountingDown,
     /** 最小为1 */
     remainingSeconds,
-    start: startCountDown,
+    start: () => startCountDown(),
+    pause,
   };
 }
