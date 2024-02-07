@@ -15,7 +15,7 @@ export default function FiveMinuteMeditationTimer() {
   
   return (
     
-      <Template type="meditation" autoStart={false} src={'/audios/waves.m4a'} />
+      <Template type="meditation" autoStart={false} src={'/audios/waves正念冥想放松.m4a'} />
     
   );
 }
