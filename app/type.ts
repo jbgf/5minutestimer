@@ -1,1 +1,1 @@
-export interface AudioPlayerRef {startPlay: () => void, }
+export interface AudioPlayerRef {startPlay: () => void, stopPlay: () => void}

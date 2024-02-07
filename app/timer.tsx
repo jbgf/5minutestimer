@@ -18,10 +18,16 @@ interface IProps {
 
 
 export default function Timer(props: IProps) {
-  const {isCountingDown, pause, start, remainingSeconds} = useCountDown({autoStart: props.autoStart, totalSeconds: 5*60/* 1 */});
+  const playRef = useRef<AudioPlayerRef | null>(null)
+  const {isCountingDown, pause, start, remainingSeconds} = useCountDown({
+    autoStart: props.autoStart, 
+    onEnd: () => {
+      playRef.current?.stopPlay?.()
+    },
+    totalSeconds: 5*60/* 1 */
+  });
   const [inited, setInited] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(false);
-  const playRef = useRef<AudioPlayerRef | null>(null)
   const startEnterListenner = useMemoizedFn((e) => {
     if (isCountingDown) return;
     if (e.key === 'Enter') {
@@ -51,7 +57,7 @@ export default function Timer(props: IProps) {
       <div className="w-96">
         {!!props.src && <AudioPlayer isAudioReady={isAudioReady} setIsAudioReady={setIsAudioReady} ref={playRef} src={props.src} />} 
         <div className="text-8xl border-indigo-950 border-4 rounded-md flex items-center pl-14">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
-        <div className="text-6xl relative z-10 flex justify-center pt-3" >{!isCountingDown ? <CaretRightOutlined className={classNames({'text-gray-400': !isAudioReady, 'cursor-not-allowed': !isAudioReady})} onClick={clickStart} title={`press enter to ${inited ? `restart` : 'start'}`} /> : <PauseOutlined onClick={pause} /> }</div>
+        {!!props.src && <div className="text-6xl relative z-10 flex justify-center pt-3" >{!isCountingDown ? <CaretRightOutlined className={classNames({'text-gray-400': !isAudioReady, 'cursor-not-allowed': !isAudioReady})} onClick={clickStart} title={`press enter to ${inited ? `restart` : 'start'}`} /> : <PauseOutlined onClick={pause} /> }</div>}
       </div>
       
   );

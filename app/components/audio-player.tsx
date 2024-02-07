@@ -19,15 +19,20 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
   const [gainNode, setGainNode] = useState<GainNode | null>(null);
-  
-  const startPlay = () => {
-    startAudio()
+  const [sourceNode, setSourceNode] = useState<AudioBufferSourceNode | null>(null);
+
+  const stopPlay = () => {
+    if (sourceNode) {
+      sourceNode.stop(); // 停止播放
+      setSourceNode(null); // 清除引用，因为sourceNode不能再次使用
+    }
   }
 
   useImperativeHandle(
     ref,
     () => ({
-      startPlay
+      startPlay: startAudio,
+      stopPlay
     }),
     
   )
@@ -70,7 +75,10 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
       console.error("加载音频失败:", error);
     }
   };
-
+  const onEnded = usePersistFn(() => {
+    if (!sourceNode) return;
+    playAudio()
+  })
   const playAudio = () => {
     if (audioContext && audioBuffer && gainNode) {
       const source = audioContext.createBufferSource();
@@ -78,10 +86,9 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
       source.connect(gainNode);
       source.loop = false; 
       source.start(0);
+      setSourceNode(source); // 保存对source的引用
 
-      source.onended = () => {
-        playAudio();
-      };
+      source.onended = onEnded;
     }
   };
 
@@ -100,7 +107,9 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
     }
     playAudio();
   });
- 
+  
+  
+
   const startAudioOnEnter = usePersistFn((e: KeyboardEvent) => {
     if (e.key === 'Enter') startAudio()
   })

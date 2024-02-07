@@ -4,6 +4,7 @@ import usePersistFn from "./hooks/usePersistFn";
 interface IUseCountDown {
   totalSeconds?: number;
   autoStart?: boolean
+  onEnd?: () => void;
 }
 export function useCountDown(props: IUseCountDown = {}) {
   const {  totalSeconds = 60 } = props;
@@ -16,6 +17,7 @@ export function useCountDown(props: IUseCountDown = {}) {
       setRemainingSeconds(remainingSeconds - 1);
     } else {
       setIsCountingDown(false);
+      props.onEnd?.();
     }
   })
   useEffect(() => {
