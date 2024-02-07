@@ -110,18 +110,18 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
   
   
 
-  const startAudioOnEnter = usePersistFn((e: KeyboardEvent) => {
+  /* const startAudioOnEnter = usePersistFn((e: KeyboardEvent) => {
     if (e.key === 'Enter') startAudio()
-  })
+  }) */
   // 用户交互启动音频
-  useEffect(() => {
+  /* useEffect(() => {
     
     document.addEventListener('keydown', startAudioOnEnter);
     return () => {
       document.removeEventListener('keydown', startAudioOnEnter);
 
     };
-  }, [audioContext, audioBuffer, gainNode]);
+  }, [audioContext, audioBuffer, gainNode]); */
   const ICON = useMemo(() => isMuted ? BellSlashIcon : BellAlertIcon, [isMuted])
   return (
     <div className='fixed z-50 left-4 top-8'>
