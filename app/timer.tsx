@@ -1,6 +1,6 @@
 'use client';
 import { useCountDown } from "./util";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
 import { useMemoizedFn } from "ahooks";
@@ -31,6 +31,11 @@ export default function Timer(props: IProps) {
   });
   const [inited, setInited] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(false);
+
+  const audioDisabled = useMemo(() => {
+    return !!props.src && !isAudioReady
+  }, [props.src, isAudioReady])
+
   const startEnterListenner = useMemoizedFn((e) => {
     if (isCountingDown) return;
     if (e.key === 'Enter') {
@@ -42,7 +47,7 @@ export default function Timer(props: IProps) {
     setInited(true)
   }
   const clickStart = () => {
-    if (!isAudioReady) return;
+    if (audioDisabled) return;
     start()
     setInited(true)
     props.onClickStart?.()
@@ -60,7 +65,7 @@ export default function Timer(props: IProps) {
       <div className="w-96">
         {!!props.src && <AudioPlayer isAudioReady={isAudioReady} setIsAudioReady={setIsAudioReady} ref={playRef} src={props.src} />} 
         <div className="text-8xl border-indigo-950 border-4 rounded-md flex items-center pl-14">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
-        {!!props.src && <div className="text-6xl relative z-10 flex justify-center pt-3" >{!isCountingDown ? <CaretRightOutlined className={classNames({'text-gray-400': !isAudioReady, 'cursor-not-allowed': !isAudioReady})} onClick={clickStart} title={`press enter to ${inited ? `restart` : 'start'}`} /> : <PauseOutlined onClick={pause} /> }</div>}
+        {<div className="text-6xl relative z-10 flex justify-center pt-3" >{!isCountingDown ? <CaretRightOutlined className={classNames({'text-gray-400': audioDisabled, 'cursor-not-allowed': audioDisabled})} onClick={clickStart} title={`press enter to ${inited ? `restart` : 'start'}`} /> : <PauseOutlined onClick={pause} /> }</div>}
       </div>
       
   );
