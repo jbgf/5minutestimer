@@ -5,6 +5,7 @@ interface IUseCountDown {
   totalSeconds?: number;
   autoStart?: boolean
   onEnd?: () => void;
+  onPause?: () => void;
 }
 export function useCountDown(props: IUseCountDown = {}) {
   const {  totalSeconds = 60 } = props;
@@ -38,6 +39,7 @@ export function useCountDown(props: IUseCountDown = {}) {
   }
   function pause () {
     setIsCountingDown(false)
+    props.onPause?.();
   }
   return {
     isCountingDown,

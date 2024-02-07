@@ -21,6 +21,9 @@ export default function Timer(props: IProps) {
   const playRef = useRef<AudioPlayerRef | null>(null)
   const {isCountingDown, pause, start, remainingSeconds} = useCountDown({
     autoStart: props.autoStart, 
+    onPause: () => {
+      playRef.current?.stopPlay?.()
+    },
     onEnd: () => {
       playRef.current?.stopPlay?.()
     },
