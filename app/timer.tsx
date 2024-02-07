@@ -46,10 +46,10 @@ export default function Timer(props: IProps) {
   }, [])
   // const 
   return (
-      <div>
+      <div className="w-96">
         {!!props.src && <AudioPlayer ref={playRef} src={props.src} />} 
-        <div className="text-8xl border-indigo-950 border-4 rounded-md flex items-center w-96 pl-14">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
-        <div className="text-6xl relative z-10 text-center" >{!isCountingDown ? <CaretRightOutlined onClick={clickStart} title={`press enter to ${inited ? `restart` : 'start'}`} /> : <PauseOutlined onClick={pause} /> }</div>
+        <div className="text-8xl border-indigo-950 border-4 rounded-md flex items-center pl-14">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
+        <div className="text-6xl relative z-10 flex justify-center pt-3" >{!isCountingDown ? <CaretRightOutlined onClick={clickStart} title={`press enter to ${inited ? `restart` : 'start'}`} /> : <PauseOutlined onClick={pause} /> }</div>
       </div>
       
   );

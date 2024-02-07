@@ -92,12 +92,11 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
     }
   };
   /** 播放音频文件 */
-  const startAudio = usePersistFn(() => {
+  const startAudio = usePersistFn(async () => {
     if (audioContext?.state === 'suspended') {
-      audioContext.resume().then(() => {
-        playAudio();
-      });
+      await audioContext.resume()
     }
+    playAudio();
   });
  
   const startAudioOnEnter = usePersistFn((e: KeyboardEvent) => {

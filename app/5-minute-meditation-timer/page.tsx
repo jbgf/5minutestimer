@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
 
 import { Metadata } from "next";
-import AudioPlayer from "../components/audio-player";
 import { createRef, useRef } from "react";
 import Template from "../server-component/template";
 dayjs.extend(duration);
