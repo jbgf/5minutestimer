@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className + ` min-h-screen flex flex-col justify-between`}>{children}</body>
+    <html lang="en" className="overflow-x-hidden">
+      <body className={inter.className + ` overflow-x-hidden min-h-screen flex flex-col justify-between`}>{children}</body>
     </html>
   );
 }
