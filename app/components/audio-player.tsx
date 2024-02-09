@@ -127,7 +127,7 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
     <div className='z-50 left-4 top-8'>
       
 
-      <Spin spinning={!props.isAudioReady}><button onClick={toggleMute}><ICON className="h-10 w-10 text-indigo-900"/></button></Spin>
+      <Spin spinning={!props.isAudioReady}><button onClick={toggleMute}><ICON className="h-10 w-10 text-indigo-700"/></button></Spin>
     </div>
   );
 });
