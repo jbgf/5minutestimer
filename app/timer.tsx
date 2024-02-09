@@ -33,7 +33,7 @@ export default function Timer(props: IProps) {
   const [isAudioReady, setIsAudioReady] = useState(false);
 
   const audioDisabled = useMemo(() => {
-    return !props.src 
+    return false
     /* return !!props.src && !isAudioReady */
   }, [props.src, isAudioReady])
 
