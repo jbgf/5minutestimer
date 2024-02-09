@@ -15,121 +15,66 @@ const MUTE_KEY = 'MUTE_TEST'
 
 
 const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) => {
-  const [isMuted, setIsMuted] = useState<boolean>();
-  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
-  const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
-  const [gainNode, setGainNode] = useState<GainNode | null>(null);
-  const [sourceNode, setSourceNode] = useState<AudioBufferSourceNode | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement>(null);
 
-  const stopPlay = () => {
-    if (sourceNode) {
-      sourceNode.stop(); // 停止播放
-      setSourceNode(null); // 清除引用，因为sourceNode不能再次使用
+  // 利用 ref 在父组件中暴露方法
+  useImperativeHandle(ref, () => ({
+    startPlay: () => {
+      audioRef?.current?.play();
+    },
+    stopPlay: () => {
+      audioRef?.current?.pause();
     }
-  }
+  }));
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      startPlay: startAudio,
-      stopPlay
-    }),
-    
-  )
-  // 初始化AudioContext和GainNode
+  // 静音状态变化时，更新 <audio> 元素
   useEffect(() => {
-    const ac = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const gn = ac.createGain();
-    gn.connect(ac.destination);
-    setAudioContext(ac);
-    setGainNode(gn);
-
-    // 加载音频
-    loadAudio(props.src, ac);
-
-    // 组件卸载时清理资源
-    return () => {
-      ac.close();
-    };
-  }, [props.src]);
-  // 静音
-  useEffect(() => {
-    if (!!localStorage.getItem(MUTE_KEY)) setIsMuted(true)
-  }, [])
-  // setting muted state
-  useEffect(() => {
-    if (gainNode) {
-      gainNode.gain.value = isMuted ? 0 : 1;
+    if (audioRef.current) {
+      audioRef.current.muted = isMuted;
     }
-  }, [gainNode, isMuted])
+  }, [isMuted]);
 
-  // 加载音频文件
-  const loadAudio = async (url: string, ac: AudioContext) => {
-    try {
-      const response = await fetch(url);
-      const arrayBuffer = await response.arrayBuffer();
-      const audioData = await ac.decodeAudioData(arrayBuffer);
-      setAudioBuffer(audioData);
-      props.setIsAudioReady(true); // 设置音频准备就绪状态
-    } catch (error) {
-      console.error("加载音频失败:", error);
-    }
+  // 加载音频文件时更新状态
+  const onAudioLoaded = () => {
+    props.setIsAudioReady(true);
   };
-  const onEnded = usePersistFn(() => {
-    if (!sourceNode) return;
-    playAudio()
-  })
-  const playAudio = () => {
-    if (audioContext && audioBuffer && gainNode) {
-      const source = audioContext.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect(gainNode);
-      source.loop = false; 
-      source.start(0);
-      setSourceNode(source); // 保存对source的引用
 
-      source.onended = onEnded;
-    }
-  };
+  // 静音状态初始化
+  useEffect(() => {
+    setIsMuted(!!localStorage.getItem(MUTE_KEY));
+  }, []);
 
   // 处理静音和取消静音
   const toggleMute = () => {
-    if (gainNode) {
-      const newMutedState = !isMuted;
-      setIsMuted(newMutedState);
-      localStorage.setItem(MUTE_KEY, newMutedState ? `1`: '');
-    }
+    const newMutedState = !isMuted;
+    setIsMuted(newMutedState);
+    localStorage.setItem(MUTE_KEY, newMutedState ? '1' : '');
   };
-  /** 播放音频文件 */
-  const startAudio = usePersistFn(async () => {
-    if (audioContext?.state === 'suspended') {
-      await audioContext.resume()
-    }
-    playAudio();
-  });
-  
-  
 
-  /* const startAudioOnEnter = usePersistFn((e: KeyboardEvent) => {
-    if (e.key === 'Enter') startAudio()
-  }) */
-  // 用户交互启动音频
-  /* useEffect(() => {
-    
-    document.addEventListener('keydown', startAudioOnEnter);
-    return () => {
-      document.removeEventListener('keydown', startAudioOnEnter);
+  const ICON = isMuted ? BellSlashIcon : BellAlertIcon;
 
-    };
-  }, [audioContext, audioBuffer, gainNode]); */
-  const ICON = useMemo(() => isMuted ? BellSlashIcon : BellAlertIcon, [isMuted])
   return (
     <div className='z-50 left-4 top-8'>
-      
-
-      <Spin spinning={!props.isAudioReady}><button onClick={toggleMute}><ICON className="h-10 w-10 text-indigo-700"/></button></Spin>
+      <audio 
+        ref={audioRef} 
+        src={props.src} 
+        onCanPlayThrough={onAudioLoaded} 
+        onEnded={() => {
+          // 可以在这里处理音频播放结束后的逻辑
+        }}
+        onLoadStart={onAudioLoaded}
+        preload="auto"
+        loop
+      />
+      {/* <Spin spinning={!props.isAudioReady}> */}
+        <button onClick={toggleMute}>
+          <ICON className="h-10 w-10 text-indigo-700 " />
+        </button>
+      {/* </Spin> */}
     </div>
   );
 });
+
 AudioPlayer.displayName = 'AudioPlayer';
 export default AudioPlayer;

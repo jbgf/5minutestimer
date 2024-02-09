@@ -33,7 +33,8 @@ export default function Timer(props: IProps) {
   const [isAudioReady, setIsAudioReady] = useState(false);
 
   const audioDisabled = useMemo(() => {
-    return !!props.src && !isAudioReady
+    return !props.src 
+    /* return !!props.src && !isAudioReady */
   }, [props.src, isAudioReady])
 
   const startEnterListenner = useMemoizedFn((e) => {
