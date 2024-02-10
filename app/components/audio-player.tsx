@@ -5,13 +5,14 @@ import React, { useMemo, useState, useEffect, forwardRef, useImperativeHandle } 
 import usePersistFn from '../hooks/usePersistFn';
 import { AudioPlayerRef } from '../type';
 import { Spin } from 'antd';
+import { MUTE_KEY } from '../const';
 
 type AudioPlayerProps = {
   src: string;
-  isAudioReady: boolean;
-  setIsAudioReady: (val: boolean) => void;
+  hideMuteIcon?: boolean;
+  loop?: boolean
 };
-const MUTE_KEY = 'MUTE_TEST'
+
 
 
 const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) => {
@@ -35,10 +36,6 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
     }
   }, [isMuted]);
 
-  // 加载音频文件时更新状态
-  const onAudioLoaded = () => {
-    props.setIsAudioReady(true);
-  };
 
   // 静音状态初始化
   useEffect(() => {
@@ -59,18 +56,15 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
       <audio 
         ref={audioRef} 
         src={props.src} 
-        onCanPlayThrough={onAudioLoaded} 
         onEnded={() => {
           // 可以在这里处理音频播放结束后的逻辑
         }}
-        onLoadStart={onAudioLoaded}
         preload="auto"
-        loop
+        loop={props.loop}
       />
-      {/* <Spin spinning={!props.isAudioReady}> */}
-        <button onClick={toggleMute}>
+        {!props.hideMuteIcon && <button onClick={toggleMute}>
           <ICON className="h-10 w-10 text-indigo-700 " />
-        </button>
+        </button>}
       {/* </Spin> */}
     </div>
   );
