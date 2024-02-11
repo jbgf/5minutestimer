@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
 import Timer from "../timer";
@@ -54,13 +55,15 @@ export default function Template(props: IProps) {
     <footer className="p-4 lg:p-24">
       <h2 className="text-2xl pb-2">How to Use the 5 Minute Timer</h2>
       <section className="pl-4">
-      <p className="underline text-gray400">{`Our 5 minute timer is designed to be simple and effective, focused sessions of any task that requires a brief time management solution. Here's how to get started:`}</p>
+      <p className="underline text-gray-400">Our 5 minute timer is designed to be simple and effective for focused sessions of any task that requires brief time management. Here's how to get started:</p>
       <ol className="text-gray-500 list-decimal pl-4">
-          <li><strong>Start the Countdown:</strong> Simply press the <strong>{`"Enter"`}</strong> key on your keyboard to initiate the 5 minute countdown.</li>
-          <li><strong>Stay Focused:</strong> While the timer counts down, dedicate your full attention to your task.</li>
+          <li><strong>Start the Countdown:</strong> You can start the 5 minute countdown by either pressing the <strong>"Enter"</strong> key on your keyboard or clicking the <strong>Play button</strong> on the screen.</li>
+          <li><strong>Stay Focused:</strong> While the timer counts down, dedicate your full attention to your task. The minimalistic design helps you stay focused without distractions.</li>
+          <li><strong>Toggle End-of-Timer Sound:</strong> If you prefer to have a sound alert when the timer ends, you can enable or disable this feature using the switch provided. The <strong>"End Sound On"</strong> setting will play a notification sound at the end of the countdown, while <strong>"End Sound Off"</strong> will keep the timer silent upon completion.</li>
       </ol>
       </section>
     </footer>
+
     </>
   );
 }
