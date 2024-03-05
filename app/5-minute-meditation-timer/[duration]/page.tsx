@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: 'Discover the simplest way to enhance your meditation practice with our 5 Minute Meditation Timer. Perfect for quick mindfulness sessions, our timer helps you stay focused, manage your time efficiently, and find peace in your busy day. Try it now and transform your meditation experience.',
 }
 const DURATIONS = [5, 10 ,15,20, 25, 30]?.map(String)
+export const dynamicParams = false
 export async function generateStaticParams() {
  
   return DURATIONS.map((duration) => ({
