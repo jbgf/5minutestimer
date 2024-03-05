@@ -7,7 +7,8 @@ import Template from "./server-component/template";
 dayjs.extend(duration);
 
 export default function Page() {
+  
   return (
-    <Template isHomePage />
+    <Template duration={5} isHomePage />
   );
 }

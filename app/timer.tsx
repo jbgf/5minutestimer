@@ -18,6 +18,7 @@ interface IProps {
   autoStart?: boolean;
   onClickStart?: () => void;
   src?: string;
+  duration: number
 }
 
 
@@ -34,7 +35,7 @@ export default function Timer(props: IProps) {
       playRef.current?.stopPlay?.()
       if (endSoundOn) endSoundPlayRef?.current?.startPlay()
     },
-    totalSeconds: 5*60/* 1 */
+    totalSeconds: props.duration*60/* 1 */
   });
   const [endSoundOn, setSoundIsOn] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(true);

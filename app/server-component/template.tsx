@@ -13,11 +13,13 @@ interface IProps {
   autoStart?: boolean
   src?: string;
   isHomePage?: boolean;
+  duration: number
 }
 
 export default function Template(props: IProps) {
   const {autoStart = false} = props;
-  const timerText = `5 minute${props.type ? ` ${props.type}` : ''} timer`
+  const timerText = `${props.duration} minute${props.type ? ` ${props.type}` : ''} timer`
+  const link = `/5-minute-meditation-timer/${props.duration}`
   return (
     <>
       <header className="p-24">
@@ -37,27 +39,30 @@ export default function Template(props: IProps) {
       
       <div className="relative w-[365px] flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
           
-        <Timer autoStart={autoStart} src={props.src} />
+        <Timer duration={props.duration} autoStart={autoStart} src={props.src} />
         
       </div>
 
       <div className="p-4  mt-96 grid lg:max-w-5xl lg:w-full lg:mb-0  lg:text-left self-start">
-        <h2 className="text-2xl pb-2">Other 5 Minute Timer</h2>
+        <h2 className="text-2xl pb-2">{`Other ${props.duration} Minute Timer`}</h2>
         <section className="pl-4">
 
           <span className="z-50 right-4 top-8 flex items-center cursor-pointer">
-            <HomeIcon url={props.isHomePage ? "/5-minute-meditation-timer" : "/"}/> 
-            <Link className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage ? "/5-minute-meditation-timer" : "/"} title="back to home page">{props.isHomePage ? `5 minute meditation timer` : `5 minute timer`}</Link>
+            <HomeIcon url={props.isHomePage ? link : "/"}/> 
+            <Link className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage 
+            ? link : "/"} title="back to home page">{props.isHomePage 
+            ? `${props.duration} minute meditation timer` : `${props.duration} minute timer`}</Link>
           </span> 
         </section>
       </div>
     </main>
     <footer className="p-4 lg:p-24">
-      <h2 className="text-2xl pb-2">How to Use the 5 Minute Timer</h2>
+      <h2 className="text-2xl pb-2">{`How to Use the ${props.duration} Minute Timer`}</h2>
       <section className="pl-4">
-      <p className="underline text-gray-400">Our 5 minute timer is designed to be simple and effective for focused sessions of any task that requires brief time management. Here's how to get started:</p>
+      <p className="underline text-gray-400">{`Our ${props.duration} minute timer is designed to be simple and effective for 
+      focused sessions of any task that requires brief time management. Here's how to get started:`}</p>
       <ol className="text-gray-500 list-decimal pl-4">
-          <li><strong>Start the Countdown:</strong> You can start the 5 minute countdown by either pressing the <strong>"Enter"</strong> key on your keyboard or clicking the <strong>Play button</strong> on the screen.</li>
+          <li><strong>Start the Countdown:</strong>{` You can start the ${props.duration} minute countdown by either pressing the `}<strong>"Enter"</strong> key on your keyboard or clicking the <strong>Play button</strong> on the screen.</li>
           <li><strong>Stay Focused:</strong> While the timer counts down, dedicate your full attention to your task. The minimalistic design helps you stay focused without distractions.</li>
           <li><strong>Toggle End-of-Timer Sound:</strong> If you prefer to have a sound alert when the timer ends, you can enable or disable this feature using the switch provided. The <strong>"End Sound On"</strong> setting will play a notification sound at the end of the countdown, while <strong>"End Sound Off"</strong> will keep the timer silent upon completion.</li>
       </ol>
