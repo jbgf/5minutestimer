@@ -6,6 +6,7 @@ import { HomeModernIcon } from "@heroicons/react/24/solid";
 import HomeIcon from "../components/home-icon";
 import Link from "next/link";
 import { Dropdown } from "antd";
+import { DURATIONS } from "../const";
 dayjs.extend(duration);
 
 interface IProps {
@@ -13,13 +14,21 @@ interface IProps {
   autoStart?: boolean
   src?: string;
   isHomePage?: boolean;
-  duration: number
+  duration: string
 }
 
 export default function Template(props: IProps) {
   const {autoStart = false} = props;
   const timerText = `${props.duration} minute${props.type ? ` ${props.type}` : ''} timer`
-  const link = `/5-minute-meditation-timer/${props.duration}`
+  const generateMeditationPath = (duration: string) => {
+    const link = `/5-minute-meditation-timer/${duration}`
+    return link
+  }
+  const generateHomePath = (duration: string) => {
+    const link = `/${duration}`
+    return link;
+  }
+  const link = generateMeditationPath(props.duration);
   return (
     <>
       <header className="p-24">
@@ -39,10 +48,19 @@ export default function Template(props: IProps) {
       
       <div className="relative w-[365px] flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
           
-        <Timer duration={props.duration} autoStart={autoStart} src={props.src} />
-        
+        <Timer duration={Number(props.duration)} autoStart={autoStart} src={props.src} />
+        {/* other duration timer */}
+        <section>
+          {DURATIONS?.filter(duration => duration !== props.duration).map(duration => {
+            return <Link className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage 
+              ? generateMeditationPath(duration) 
+              : generateHomePath(duration)
+            } title={props.isHomePage ? `go to ${duration} minutes meditation timer`: `back to ${duration} minutes timer`}>{props.isHomePage 
+              ? `${duration} minute meditation timer` : `${duration} minute timer`}</Link>
+          })}
+        </section>
       </div>
-
+      {/* other type timer */}
       <div className="p-4  mt-96 grid lg:max-w-5xl lg:w-full lg:mb-0  lg:text-left self-start">
         <h2 className="text-2xl pb-2">{`Other ${props.duration} Minute Timer`}</h2>
         <section className="pl-4">
@@ -50,7 +68,7 @@ export default function Template(props: IProps) {
           <span className="z-50 right-4 top-8 flex items-center cursor-pointer">
             <HomeIcon url={props.isHomePage ? link : "/"}/> 
             <Link className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage 
-            ? link : "/"} title="back to home page">{props.isHomePage 
+            ? link : "/"} title={props.isHomePage ? `go to meditation timer`: "back to home page"}>{props.isHomePage 
             ? `${props.duration} minute meditation timer` : `${props.duration} minute timer`}</Link>
           </span> 
         </section>
