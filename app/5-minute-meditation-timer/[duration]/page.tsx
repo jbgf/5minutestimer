@@ -23,7 +23,7 @@ export default function FiveMinuteMeditationTimer({params}: {params: {duration: 
   
   return (
     
-      <Template duration={Number(params.duration)} type="meditation" autoStart={false} src={'/audios/正念冥想放松.m4a'} />
+      <Template duration={(params.duration)} type="meditation" autoStart={false} src={'/audios/正念冥想放松.m4a'} />
     
   );
 }

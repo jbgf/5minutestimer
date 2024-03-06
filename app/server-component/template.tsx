@@ -19,6 +19,7 @@ interface IProps {
 
 export default function Template(props: IProps) {
   const {autoStart = false} = props;
+  console.log(`...props...`, props)
   const timerText = `${props.duration} minute${props.type ? ` ${props.type}` : ''} timer`
   const generateMeditationPath = (duration: string) => {
     const link = `/5-minute-meditation-timer/${duration}`
@@ -28,7 +29,8 @@ export default function Template(props: IProps) {
     const link = `/${duration}`
     return link;
   }
-  const link = generateMeditationPath(props.duration);
+  const meditationLink = generateMeditationPath(props.duration);
+  const baseTimerLink = generateHomePath(props.duration)
   return (
     <>
       <header className="p-24">
@@ -46,29 +48,34 @@ export default function Template(props: IProps) {
       </header>
     <main className="flex flex-col items-center lg:p-24 !pb-0 2xl:pt-80 flex-1">
       
-      <div className="relative w-[365px] flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+      <div className="relative w-[365px] flex flex-col after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] 
+      after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 
+      after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent 
+      before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff]
+       after:dark:opacity-40 before:lg:h-[360px]">
           
         <Timer duration={Number(props.duration)} autoStart={autoStart} src={props.src} />
-        {/* other duration timer */}
-        <section>
+        
+      </div>
+      {/* other duration timer */}
+      <section className="grid grid-cols-2 md:grid-cols-3 gap-4 place-items-center pt-10">
           {DURATIONS?.filter(duration => duration !== props.duration).map(duration => {
-            return <Link className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage 
-              ? generateMeditationPath(duration) 
-              : generateHomePath(duration)
-            } title={props.isHomePage ? `go to ${duration} minutes meditation timer`: `back to ${duration} minutes timer`}>{props.isHomePage 
-              ? `${duration} minute meditation timer` : `${duration} minute timer`}</Link>
+            return <Link key={duration} className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage 
+              ? generateHomePath(duration)
+              : generateMeditationPath(duration)
+            } title={props.isHomePage ? `back to ${duration} minutes timer` : `go to ${duration} minutes meditation timer`}>{props.isHomePage 
+              ? `${duration} min timer` : `${duration} min meditation timer`}</Link>
           })}
         </section>
-      </div>
       {/* other type timer */}
       <div className="p-4  mt-96 grid lg:max-w-5xl lg:w-full lg:mb-0  lg:text-left self-start">
         <h2 className="text-2xl pb-2">{`Other ${props.duration} Minute Timer`}</h2>
         <section className="pl-4">
 
           <span className="z-50 right-4 top-8 flex items-center cursor-pointer">
-            <HomeIcon url={props.isHomePage ? link : "/"}/> 
+            <HomeIcon url={props.isHomePage ? meditationLink : baseTimerLink}/> 
             <Link className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage 
-            ? link : "/"} title={props.isHomePage ? `go to meditation timer`: "back to home page"}>{props.isHomePage 
+            ? meditationLink : baseTimerLink} title={props.isHomePage ? `go to meditation timer`: "back to home page"}>{props.isHomePage 
             ? `${props.duration} minute meditation timer` : `${props.duration} minute timer`}</Link>
           </span> 
         </section>
