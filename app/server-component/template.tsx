@@ -58,12 +58,12 @@ export default function Template(props: IProps) {
         
       </div>
       {/* other duration timer */}
-      <section className="grid grid-cols-2 md:grid-cols-3 gap-4 place-items-center pt-10">
+      <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 place-items-center pt-10">
           {DURATIONS?.filter(duration => duration !== props.duration).map(duration => {
             return <Link key={duration} className="whitespace-nowrap hover:text-sky-500 underline" href={props.isHomePage 
               ? generateHomePath(duration)
               : generateMeditationPath(duration)
-            } title={props.isHomePage ? `back to ${duration} minutes timer` : `go to ${duration} minutes meditation timer`}>{props.isHomePage 
+            } title={props.isHomePage ? `go to ${duration} minutes timer` : `go to ${duration} minutes meditation timer`}>{props.isHomePage 
               ? `${duration} min timer` : `${duration} min meditation timer`}</Link>
           })}
         </section>

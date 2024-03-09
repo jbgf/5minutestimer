@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import React from 'react';
+import { Inspector } from 'react-dev-inspector'
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -14,9 +18,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isDev = process.env.NODE_ENV === "development"
+
+  const Wrapper = isDev ? Inspector : React.Fragment;
+
   return (
     <html lang="en" className="overflow-x-hidden">
-      <body className={inter.className + ` overflow-x-hidden min-h-screen flex flex-col justify-between`}>{children}</body>
+      <Wrapper>
+      <body className={inter.className + ` overflow-x-hidden min-h-screen flex flex-col justify-between`}>
+      <AntdRegistry>{children}</AntdRegistry></body>
+      </Wrapper>
     </html>
   );
 }
