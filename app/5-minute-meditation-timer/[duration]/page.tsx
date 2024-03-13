@@ -5,6 +5,7 @@ import { Metadata, ResolvingMetadata } from 'next'
 import { createRef, useRef } from "react";
 import Template from "../../server-component/template";
 import { DURATIONS } from "@/app/const";
+import { addPathSuffix, getPathSuffix } from "@/app/server-util";
 dayjs.extend(duration);
 
 /* export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const duration = params.duration || `5`
+  const duration = getPathSuffix((params.duration || addPathSuffix(`5`)))
  
   return {
     title: `${duration} Minute Meditation Timer`,
@@ -37,7 +38,7 @@ export const dynamicParams = false
 export async function generateStaticParams() {
  
   return DURATIONS.map((duration) => ({
-    duration: duration,
+    duration: (duration),
   }))
 }
 export default function FiveMinuteMeditationTimer({params}: {params: {duration: string}}) {
