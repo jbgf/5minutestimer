@@ -5,7 +5,7 @@ import { Metadata, ResolvingMetadata } from 'next'
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
 import Template from "../server-component/template";
-import { addPathSuffix, getPathSuffix } from "../server-util";
+import { addPathSuffix, generateMetadataFN, getPathSuffix } from "../server-util";
 dayjs.extend(duration);
 type Props = {
   params: { duration: string }
@@ -23,16 +23,7 @@ export async function generateMetadata(
   learn how to incorporate short intervals into your daily routine for improved efficiency.",
 };
   */
-  // read route params
-  const durationNum = getPathSuffix(params.duration || addPathSuffix(`5`))
- 
-  return {
-    title: `${durationNum} Minute Timer - Boost Your Productivity`,
-    description: `Discover efficient ways to use a ${durationNum} minute timer for boosting productivity 
-    and focus. From Pomodoro techniques to quick breaks and meditation, 
-    learn how to incorporate short intervals into your daily routine for improved efficiency.`,
-
-  }
+  return generateMetadataFN({params, searchParams}, parent)
 }
 
 export default function DurationPage({params}: {params: {duration: string}}) {

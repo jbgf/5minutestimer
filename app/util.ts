@@ -7,6 +7,7 @@ interface IUseCountDown {
   onEnd?: () => void;
   onPause?: () => void;
 }
+
 export function useCountDown(props: IUseCountDown = {}) {
   const {  totalSeconds = 60 } = props;
 

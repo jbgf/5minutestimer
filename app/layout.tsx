@@ -1,17 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import React from 'react';
 import { Inspector } from 'react-dev-inspector'
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Props } from "./type";
+import { generateMetadataFN } from "./server-util";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "5 minute timer - Boost Your Productivity",
-  description: "Discover efficient ways to use a 5 minute timer for boosting productivity and focus. From Pomodoro techniques to quick breaks and meditation, learn how to incorporate short intervals into your daily routine for improved efficiency.",
-};
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  
+  return generateMetadataFN({params, searchParams}, parent)
+}
 
 export default function RootLayout({
   children,

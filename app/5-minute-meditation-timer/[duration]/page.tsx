@@ -35,12 +35,12 @@ export async function generateMetadata(
 }
  
 export const dynamicParams = false
-export async function generateStaticParams() {
+/* export async function generateStaticParams() {
  
   return DURATIONS.map((duration) => ({
-    duration: (duration),
+    duration: duration,
   }))
-}
+} */
 export default function FiveMinuteMeditationTimer({params}: {params: {duration: string}}) {
   console.log(params)
   

@@ -84,7 +84,7 @@ export default function Template(props: IProps) {
         </section>
       </div>
     </main>
-    <footer className="p-4 lg:p-24">
+    <article className="p-4 lg:p-24">
       <h2 className="text-2xl pb-2">{`How to Use the ${durationNum} Minute Timer`}</h2>
       <section className="pl-4">
       <p className="underline text-gray-400">{`Our ${durationNum} minute timer is designed to be simple and effective for 
@@ -95,7 +95,7 @@ export default function Template(props: IProps) {
           <li><strong>Toggle End-of-Timer Sound:</strong> If you prefer to have a sound alert when the timer ends, you can enable or disable this feature using the switch provided. The <strong>"End Sound On"</strong> setting will play a notification sound at the end of the countdown, while <strong>"End Sound Off"</strong> will keep the timer silent upon completion.</li>
       </ol>
       </section>
-    </footer>
+    </article>
 
     </>
   );
