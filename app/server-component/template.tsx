@@ -20,7 +20,7 @@ interface IProps {
 
 export default function Template(props: IProps) {
   const {autoStart = false} = props;
-  console.log(`...props...`, props)
+  // console.log(`...props...`, props)
   const durationNum = String(parseInt(props.duration))
   const timerText = `${durationNum} minute${props.type ? ` ${props.type}` : ''} timer`
   const generateMeditationPath = (data: {durationNum: string}) => {

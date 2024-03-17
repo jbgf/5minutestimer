@@ -11,7 +11,7 @@ export async function generateMetadataFN(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  console.log({params})
+  // console.log({params})
   const durationNum = getPathSuffix(params.duration || addPathSuffix(`5`))
  
   return {

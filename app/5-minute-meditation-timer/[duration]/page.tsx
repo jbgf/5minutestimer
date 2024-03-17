@@ -42,7 +42,7 @@ export const dynamicParams = false
   }))
 } */
 export default function FiveMinuteMeditationTimer({params}: {params: {duration: string}}) {
-  console.log(params)
+  console.log(`meditation 5`, params)
   
   return (
     
