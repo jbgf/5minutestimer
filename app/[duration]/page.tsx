@@ -28,10 +28,8 @@ export async function generateMetadata(
 
 export default function DurationPage({params}: {params: {duration: string}}) {
   console.log(`home.....params....`,params, )
-  const isOldGoogleSearch = params?.duration === '5-minute-meditation-timer'
-  return isOldGoogleSearch 
-  ? (<Template duration={(params.duration)} type="meditation" autoStart={false} src={'/audios/正念冥想放松.m4a'} />) 
-  : (
+  // const isOldGoogleSearch = params?.duration === '5-minute-meditation-timer'
+  return (
     <Template duration={params?.duration || addPathSuffix(String(5))} isHomePage />
   );
 }

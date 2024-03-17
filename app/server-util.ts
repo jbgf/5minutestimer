@@ -1,6 +1,7 @@
 
 import { Metadata, ResolvingMetadata } from 'next'
 import { Props } from './type'
+import { isArray } from 'lodash'
 
 const SUFFIX = 'minutes'
 export const addPathSuffix = (duration: string) => `${duration}${SUFFIX}`

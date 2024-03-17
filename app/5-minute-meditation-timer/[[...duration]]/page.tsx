@@ -14,7 +14,7 @@ dayjs.extend(duration);
 } */
  
 type Props = {
-  params: { duration: string }
+  params: { duration: string[] }
   searchParams: { [key: string]: string | string[] | undefined }
 }
  
@@ -23,7 +23,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const duration = getPathSuffix((params.duration || addPathSuffix(`5`)))
+  const duration = getPathSuffix((params.duration?.[0] || addPathSuffix(`5`)))
  
   return {
     title: `${duration} Minute Meditation Timer`,
@@ -34,19 +34,19 @@ export async function generateMetadata(
   }
 }
  
-export const dynamicParams = false
+// export const dynamicParams = false
 /* export async function generateStaticParams() {
  
   return DURATIONS.map((duration) => ({
-    duration: duration,
+    duration: [duration],
   }))
 } */
-export default function FiveMinuteMeditationTimer({params}: {params: {duration: string}}) {
+export default function FiveMinuteMeditationTimer({params}: {params: Props['params']}) {
   console.log(`meditation 5`, params)
   
   return (
     
-      <Template duration={(params.duration)} type="meditation" autoStart={false} src={'/audios/正念冥想放松.m4a'} />
+      <Template duration={(params.duration?.[0]) || addPathSuffix(`5`)} type="meditation" autoStart={false} src={'/audios/正念冥想放松.m4a'} />
     
   );
 }
