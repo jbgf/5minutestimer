@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import React from 'react';
 import { Inspector } from 'react-dev-inspector'
 import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -33,6 +34,8 @@ export default function RootLayout({
       <body className={inter.className + ` overflow-x-hidden min-h-screen flex flex-col justify-between`}>
       <AntdRegistry>{children}</AntdRegistry></body>
       </Wrapper>
+      <GoogleAnalytics gaId="G-BFQB3H35VP" />
+
     </html>
   );
 }

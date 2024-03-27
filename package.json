@@ -12,6 +12,7 @@
     "@ant-design/icons": "^5.3.0",
     "@ant-design/nextjs-registry": "^1.0.0",
     "@heroicons/react": "^2.1.1",
+    "@next/third-parties": "^14.1.4",
     "ahooks": "^3.7.10",
     "antd": "^5.14.0",
     "classnames": "^2.5.1",
