@@ -10,7 +10,7 @@ export const DURATIONS = Array.apply(null, Array(11)).map(function (x, i) {
 })
 
 export enum TimerTypes {
-  Home = 'home',
+  Home = '',
   Nap = 'nap',
   Meditation = 'meditation'
 }

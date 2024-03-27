@@ -9,7 +9,7 @@ export const generateHomePath = (data:{durationNum: string}) => {
   return addPathSuffix(link);
 }
 
-export const generatePath = (data:{type: string,durationNum: string}) => {
+export const generatePath = (data:{type?: string,durationNum: string}) => {
   const link = `/${data?.type ? `${data?.type}/` : ''}${data.durationNum}`
   return addPathSuffix(link);
 }
