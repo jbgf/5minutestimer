@@ -4,7 +4,7 @@ import duration from 'dayjs/plugin/duration'
 import { Metadata, ResolvingMetadata } from 'next'
 import { createRef, useRef } from "react";
 import Template from "../../server-component/template";
-import { DURATIONS } from "@/app/const";
+import { DURATIONS, TimerTypes } from "@/app/const";
 import { addPathSuffix, getPathSuffix } from "@/app/server-util";
 dayjs.extend(duration);
 
@@ -30,7 +30,6 @@ export async function generateMetadata(
     description: `Discover the simplest way to enhance your meditation practice with our ${duration} Minute Meditation Timer. 
     Perfect for quick mindfulness sessions, our timer helps you stay focused, manage your time efficiently, 
     and find peace in your busy day. Try it now and transform your meditation experience.`,
-
   }
 }
  
@@ -42,11 +41,11 @@ export async function generateMetadata(
   }))
 } */
 export default function FiveMinuteMeditationTimer({params}: {params: Props['params']}) {
-  console.log(`meditation 5`, params)
+  // console.log(`meditation 5`, params)
   
   return (
     
-      <Template duration={(params.duration?.[0]) || addPathSuffix(`5`)} type="meditation" autoStart={false} src={'/audios/正念冥想放松.m4a'} />
+      <Template duration={(params.duration?.[0]) || addPathSuffix(`5`)} type={TimerTypes.Meditation} autoStart={false} src={'/audios/正念冥想放松.m4a'} />
     
   );
 }

@@ -19,13 +19,15 @@ interface IProps {
   onClickStart?: () => void;
   src?: string;
   duration: number
+  noEndSound?: boolean
+  hidePlayButton?: boolean
 }
 
 
 export default function Timer(props: IProps) {
   const playRef = useRef<AudioPlayerRef | null>(null)
   const endSoundPlayRef = useRef<AudioPlayerRef | null>(null)
-
+  console.log(`hidePlayButton`, props.hidePlayButton)
   const {isCountingDown, pause, start, remainingSeconds} = useCountDown({
     autoStart: props.autoStart, 
     onPause: () => {
@@ -33,7 +35,7 @@ export default function Timer(props: IProps) {
     },
     onEnd: () => {
       playRef.current?.stopPlay?.()
-      if (endSoundOn) endSoundPlayRef?.current?.startPlay()
+      if (!props.noEndSound && endSoundOn) endSoundPlayRef?.current?.startPlay()
     },
     totalSeconds: props.duration*60/* 1 */
   });
@@ -89,9 +91,9 @@ export default function Timer(props: IProps) {
         <div className="text-8xl border-indigo-950 border-4 rounded-md flex items-center pl-14">{dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}</div>
         <div className="flex items-center justify-start pt-3 space-x-4">
 
-          {<div className="text-6xl relative z-10 flex justify-center items-end" >{!isCountingDown ? <CaretRightOutlined className={classNames({'text-gray-400': audioDisabled, '!cursor-not-allowed': audioDisabled})} onClick={clickStart} title={`press enter to start`} /> : <PauseOutlined onClick={pause} /> }</div>}
+          {!props.hidePlayButton && <div className="text-6xl relative z-10 flex justify-center items-end" >{!isCountingDown ? <CaretRightOutlined className={classNames({'text-gray-400': audioDisabled, '!cursor-not-allowed': audioDisabled})} onClick={clickStart} title={`press enter to start`} /> : <PauseOutlined onClick={pause} /> }</div>}
           {!!props.src && <MusicPlayer ref={playRef} src={props.src} />}
-          <Switch checked={endSoundOn} onChange={handleSetSoundIsOn} checkedChildren={`End Sound On`} unCheckedChildren={`End Sound Off`} size="default" /> 
+          {!props.noEndSound && <Switch checked={endSoundOn} onChange={handleSetSoundIsOn} checkedChildren={`End Sound On`} unCheckedChildren={`End Sound Off`} size="default" /> }
         </div>
         <AudioPlayer loop={false} src={'/audios/end_钟.mp3'} ref={endSoundPlayRef} hideMuteIcon />
       </div>

@@ -8,3 +8,9 @@ export const END_SOUND_PLAY_KEY = 'END_SOUND_PLAY_KEY'
 export const DURATIONS = Array.apply(null, Array(11)).map(function (x, i) { 
   return addPathSuffix((i + 1) * 5 + ''); 
 })
+
+export enum TimerTypes {
+  Home = 'home',
+  Nap = 'nap',
+  Meditation = 'meditation'
+}

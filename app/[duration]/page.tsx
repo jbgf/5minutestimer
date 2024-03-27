@@ -15,14 +15,7 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  /* 
-    export const metadata: Metadata = {
-  title: "5 minute timer - Boost Your Productivity",
-  description: "Discover efficient ways to use a 5 minute timer for boosting productivity 
-  and focus. From Pomodoro techniques to quick breaks and meditation, 
-  learn how to incorporate short intervals into your daily routine for improved efficiency.",
-};
-  */
+
   return generateMetadataFN({params, searchParams}, parent)
 }
 
