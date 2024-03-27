@@ -27,7 +27,7 @@ interface IProps {
 export default function Timer(props: IProps) {
   const playRef = useRef<AudioPlayerRef | null>(null)
   const endSoundPlayRef = useRef<AudioPlayerRef | null>(null)
-  console.log(`hidePlayButton`, props.hidePlayButton)
+  // console.log(`hidePlayButton`, props.hidePlayButton)
   const {isCountingDown, pause, start, remainingSeconds} = useCountDown({
     autoStart: props.autoStart, 
     onPause: () => {

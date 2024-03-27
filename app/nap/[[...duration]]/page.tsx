@@ -29,7 +29,7 @@ export async function generateMetadata(
   }
 }
 
-export default function FiveMinuteMeditationTimer({params}: {params: Props['params']}) {
+export default function NapTimer({params}: {params: Props['params']}) {
   
   return (
     
