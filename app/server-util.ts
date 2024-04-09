@@ -16,9 +16,8 @@ export async function generateMetadataFN(
   const durationNum = getPathSuffix(params.duration || addPathSuffix(`5`))
  
   return {
-    title: `${durationNum}-Minute Timer with End-of-Time Sound`,
-    description: `${durationNum}-minute timer not only helps you track time but also notifies you with a pleasant sound. Great for managing various activities. 
-    Easy time management is here!`,
+    title: `${durationNum} Minute Timer, ${durationNum} Minute Countdown Timer`,
+    description: `${durationNum} minute timer not only helps you countdown time but could also notifies you. Great for managing activities from cooking, napping to scheduling short breaks throughout your day `,
 
   }
 }

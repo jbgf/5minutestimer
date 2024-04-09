@@ -69,9 +69,9 @@ export default function Template(props: IProps) {
         <h2 className="text-2xl pb-2">{`How to Use the ${durationNum} Minute Timer`}</h2>
         <section className="pl-4">
         <p className="underline text-gray-400">{`Our ${durationNum} minute timer is designed to be simple and effective for 
-        focused sessions of any task that requires brief time management. Here's how to get started:`}</p>
+        focused sessions of any task that requires brief time management.To use our 5 Minutes Timer, Here's how to get started:`}</p>
         <ol className="text-gray-500 list-decimal pl-4">
-            <li><strong>Start the Countdown:</strong>{` You can start the ${durationNum} minute countdown by either pressing the `}<strong>"Enter"</strong> key on your keyboard or clicking the <strong>Play button</strong> on the screen.</li>
+            <li><strong>Start the Countdown:</strong>{` You can start the ${durationNum} minute countdown by `}clicking the <strong>Play button</strong> on the screen.</li>
             <li><strong>Stay Focused:</strong> While the timer counts down, dedicate your full attention to your task. The minimalistic design helps you stay focused without distractions.</li>
             <li><strong>Toggle End-of-Timer Sound:</strong> If you prefer to have a sound alert when the timer ends, you can enable or disable this feature using the switch provided. The <strong>"End Sound On"</strong> setting will play a notification sound at the end of the countdown, while <strong>"End Sound Off"</strong> will keep the timer silent upon completion.</li>
         </ol>

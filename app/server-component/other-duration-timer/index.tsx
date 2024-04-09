@@ -9,7 +9,7 @@ interface IProps {
 }
 export default function OtherDurationTimer (props: IProps) {
   return (
-    <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 place-items-center pt-10">
+    <section className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 place-items-center pt-10">
           {DURATIONS?.filter(duration => duration !== props.durationStr).map(duration => {
             const durationNum = getPathSuffix(duration)
             const typeData = OtherTypes?.filter(item => item?.label === props.type)?.[0] || OtherTypes[0]

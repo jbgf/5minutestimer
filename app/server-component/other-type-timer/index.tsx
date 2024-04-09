@@ -12,8 +12,8 @@ export default function OtherTypeTimers (props: IProps) {
         <h2 className="text-2xl pb-2">{`Other ${props.durationNum} Minute Timer`}</h2>
         <section className="pl-4">
 
-          <span className="z-50 right-4 top-8 flex items-center cursor-pointer">
-            <HomeIcon /> 
+          <span className="grid sm:grid-cols-2 md:grid-cols-3 z-50 right-4 top-8 items-center cursor-pointer">
+            {/* <HomeIcon />  */}
             {OtherTypes.map((item, index) => {
               const text = getLinkTitle({title: item?.title, durationNum: props.durationNum})
               return <Link 
