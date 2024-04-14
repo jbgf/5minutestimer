@@ -14,3 +14,7 @@ export const generatePath = (data:{type?: string,durationNum: string}) => {
   return addPathSuffix(link);
 }
 export const getLinkTitle = (data: {title: string, durationNum: string}) => data?.title?.replace(`{$}`, data?.durationNum)
+
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

@@ -48,11 +48,7 @@ export default function Template(props: IProps) {
       </header>
     <main className="flex flex-col items-center lg:p-24 !pb-0 2xl:pt-80 flex-1">
       
-      <div className="relative w-[365px] flex flex-col after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] 
-      after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 
-      after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent 
-      before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff]
-       after:dark:opacity-40">
+      <div className="relative w-[365px] flex flex-col ">
           
         <Timer duration={Number(durationNum)} noEndSound={props.noEndSound} hidePlayButton={props.hidePlayButton} autoStart={autoStart} src={props.src} />
         
