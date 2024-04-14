@@ -7,7 +7,7 @@ import { useMemoizedFn } from "ahooks";
 import { AudioPlayerRef } from "./type";
 import { CaretRightOutlined, PauseOutlined } from "@ant-design/icons";
 import classNames from "classnames";
-import { Button, Switch } from "antd";
+import { Button, Space, Switch } from "antd";
 import { END_SOUND_PLAY_KEY } from "./const";
 import { isNil } from "lodash";
 import MusicPlayer from "./components/music-play";
@@ -88,8 +88,8 @@ export default function Timer(props: IProps) {
   return (
       <div className="w-94">
         
-        <div className="text-8xl h-24 rounded-md flex items-center relative bg-gray-200">
-          <div className="absolute left-1/2 -translate-x-1/2 ">
+        <div className="text-8xl h-24 rounded-md flex items-center relative bg-blue-600 text-white">
+          <div className="absolute left-1/2 -translate-x-32">
             {dayjs.duration(remainingSeconds, 'second')?.format('mm:ss')}
           </div>
         </div>
@@ -97,11 +97,14 @@ export default function Timer(props: IProps) {
 
           {!props.hidePlayButton && <div className="h-12 text-6xl relative z-10 flex justify-between items-center" >{
             !isCountingDown 
-              ? <Button type="text" disabled={audioDisabled} onClick={clickStart} title={`press enter to start`} >Start</Button>
-              : <Button type="text" onClick={pause} >Pause</Button> }</div>
+              ? <Button type="primary" disabled={audioDisabled} onClick={clickStart} title={`press enter to start`} >Start</Button>
+              : <Button type="primary" onClick={pause} >Pause</Button> }</div>
           }
-          {!!props.src && <MusicPlayer ref={playRef} src={props.src} />}
-          {!props.noEndSound && <Switch checked={endSoundOn} onChange={handleSetSoundIsOn} checkedChildren={`End Sound On`} unCheckedChildren={`End Sound Off`} size="default" /> }
+          <Space align="center">
+
+            {!!props.src && <MusicPlayer ref={playRef} src={props.src} />}
+            {!props.noEndSound && <Switch checked={endSoundOn} onChange={handleSetSoundIsOn} checkedChildren={`End Sound On`} unCheckedChildren={`End Sound Off`} size="default" /> }
+          </Space>
         </div>
         <AudioPlayer loop={false} src={'/audios/end_钟.mp3'} ref={endSoundPlayRef} hideMuteIcon />
       </div>

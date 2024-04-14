@@ -8,7 +8,7 @@ interface IProps {
 export default function OtherTypeTimers (props: IProps) {
   
   return (
-    <div className="p-4 pl-0 mt-6 grid lg:w-full lg:mb-0  lg:text-left self-start">
+    <div className="p-4 mt-6 grid lg:w-full lg:mb-0  lg:text-left self-start">
         <h2 className="text-2xl pb-2">{`Other Type ${props.durationNum} Minute Timer`}</h2>
         <section className="pl-4">
 
