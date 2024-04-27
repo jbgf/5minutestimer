@@ -23,7 +23,7 @@ export async function generateMetadata(
   const duration = getPathSuffix((params.duration?.[0] || addPathSuffix(`5`)))
  
   return {
-    title: `${duration} Minute Nap Timer`,
+    title: `${duration}-Minute Timer: Quick Nap Alarm`,
     description: `Automatically starts for a hassle-free setup, 
     ensuring your short naps end as quietly as they begin. Ideal for relaxation`,
   }

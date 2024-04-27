@@ -26,7 +26,7 @@ export async function generateMetadata(
   const duration = getPathSuffix((params.duration?.[0] || addPathSuffix(`5`)))
  
   return {
-    title: `${duration} Minute Meditation Timer`,
+    title: `${duration}-Minute Countdown Timer: Ideal for Meditation`,
     description: `Discover the simplest way to enhance your meditation practice with our ${duration} Minute Meditation Timer. `,
   }
 }

@@ -16,7 +16,7 @@ export async function generateMetadataFN(
   const durationNum = getPathSuffix(params.duration || addPathSuffix(`5`))
  
   return {
-    title: `${durationNum} Minute Timer, ${durationNum} Minute Countdown Timer`,
+    title: `${durationNum}-Minute Timer for Everyday Needs, ${durationNum} Minute Countdown Timer`,
     description: `${durationNum} minute timer not only helps you countdown time but could also notifies you. Great for managing activities from cooking, napping to scheduling short breaks throughout your day `,
 
   }
