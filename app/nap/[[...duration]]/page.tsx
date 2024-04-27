@@ -33,7 +33,7 @@ export default function NapTimer({params}: {params: Props['params']}) {
   
   return (
     
-      <Template noEndSound hidePlayButton duration={(params.duration?.[0]) || addPathSuffix(`5`)} type={TimerTypes.Nap} autoStart  />
+      <Template duration={(params.duration?.[0]) || addPathSuffix(`5`)} type={TimerTypes.Nap} autoStart  />
     
   );
 }

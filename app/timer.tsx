@@ -37,7 +37,7 @@ export default function Timer(props: IProps) {
       playRef.current?.stopPlay?.()
       if (!props.noEndSound && endSoundOn) endSoundPlayRef?.current?.startPlay()
     },
-    totalSeconds: props.duration*60/* 1 */
+    totalSeconds: props.duration * 60
   });
   const [endSoundOn, setSoundIsOn] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(true);
@@ -95,7 +95,8 @@ export default function Timer(props: IProps) {
         </div>
         <div className="flex items-center justify-between pt-8 ">
 
-          {!props.hidePlayButton && <div className="h-12 text-6xl relative z-10 flex justify-between items-center" >{
+          {/* page must be touched to play */
+          (props.noEndSound ? !props.hidePlayButton : true) && <div className="h-12 text-6xl relative z-10 flex justify-between items-center" >{
             !isCountingDown 
               ? <Button type="primary" disabled={audioDisabled} onClick={clickStart} title={`press enter to start`} >Start</Button>
               : <Button type="primary" onClick={pause} >Pause</Button> }</div>

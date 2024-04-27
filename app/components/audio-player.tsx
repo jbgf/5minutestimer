@@ -39,7 +39,7 @@ const AudioPlayer = forwardRef<AudioPlayerRef, AudioPlayerProps>((props, ref) =>
 
   // 静音状态初始化
   useEffect(() => {
-    setIsMuted(!!localStorage.getItem(MUTE_KEY));
+    // setIsMuted(!!localStorage.getItem(MUTE_KEY));
   }, []);
 
   // 处理静音和取消静音
