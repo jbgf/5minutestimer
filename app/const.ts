@@ -1,4 +1,8 @@
-import { addPathSuffix } from "./server-util";
+
+
+export const SUFFIX = 'minutes'
+
+const addPathSuffix = (duration: string) => `${duration}${SUFFIX}`
 
 /** 静音 */
 export const MUTE_KEY = 'MUTE_TEST'

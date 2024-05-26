@@ -4,8 +4,9 @@ import duration from 'dayjs/plugin/duration'
 import { Metadata, ResolvingMetadata } from 'next'
 import { createRef, useRef } from "react";
 import Template from "../../server-component/template";
-import { DURATIONS, TimerTypes } from "@/app/const";
-import { addPathSuffix, getPathSuffix } from "@/app/server-util";
+import { TimerTypes } from "@/app/const";
+import { getPathSuffix } from "@/app/server-util";
+import { addPathSuffix, generateDescription, generateTitle } from "@/util";
 dayjs.extend(duration);
 
 
@@ -23,9 +24,8 @@ export async function generateMetadata(
   const duration = getPathSuffix((params.duration?.[0] || addPathSuffix(`5`)))
  
   return {
-    title: `${duration}-Minute Timer: Quick Nap Alarm`,
-    description: `Automatically starts for a hassle-free setup, 
-    ensuring your short naps end as quietly as they begin. Ideal for relaxation`,
+    title: generateTitle({duration, type: TimerTypes.Nap}),
+    description: generateDescription({'duration': duration, 'type': TimerTypes.Nap}),
   }
 }
 

@@ -4,8 +4,9 @@ import duration from 'dayjs/plugin/duration'
 import { Metadata, ResolvingMetadata } from 'next'
 import { createRef, useRef } from "react";
 import Template from "../../server-component/template";
-import { DURATIONS, TimerTypes } from "@/app/const";
-import { addPathSuffix, getPathSuffix } from "@/app/server-util";
+import { TimerTypes } from "@/app/const";
+import { getPathSuffix } from "@/app/server-util";
+import { addPathSuffix, generateDescription, generateTitle } from "@/util";
 dayjs.extend(duration);
 
 /* export const metadata: Metadata = {
@@ -26,8 +27,8 @@ export async function generateMetadata(
   const duration = getPathSuffix((params.duration?.[0] || addPathSuffix(`5`)))
  
   return {
-    title: `${duration}-Minute Countdown Timer: Ideal for Meditation`,
-    description: `Discover the simplest way to enhance your meditation practice with our ${duration} Minute Meditation Timer. `,
+    title: generateTitle({'duration': duration, type: TimerTypes.Meditation}),
+    description: generateDescription({'duration': duration, type: TimerTypes.Meditation}),
   }
 }
  

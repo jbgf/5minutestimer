@@ -2,9 +2,9 @@
 import { Metadata, ResolvingMetadata } from 'next'
 import { Props } from './type'
 import { isArray } from 'lodash'
+import { addPathSuffix, generateDescription, generateTitle } from '@/util'
+import { SUFFIX } from './const'
 
-const SUFFIX = 'minutes'
-export const addPathSuffix = (duration: string) => `${duration}${SUFFIX}`
 export const getPathSuffix = (durationWithMinPath: string) => durationWithMinPath?.replace(SUFFIX, '')
 
 
@@ -16,8 +16,7 @@ export async function generateMetadataFN(
   const durationNum = getPathSuffix(params.duration || addPathSuffix(`5`))
  
   return {
-    title: `${durationNum}-Minute Timer for Everyday Needs, ${durationNum} Minute Countdown Timer`,
-    description: `${durationNum} minute timer not only helps you countdown time but could also notifies you. Great for managing activities from cooking, napping to scheduling short breaks throughout your day `,
-
+    title: generateTitle({duration: durationNum}),
+    description: generateDescription({'duration': durationNum}),
   }
 }

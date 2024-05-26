@@ -2,6 +2,7 @@ import HomeIcon from "@/app/components/home-icon";
 import { generateHomePath, generateMeditationPath, generatePath, getLinkTitle } from "../utils";
 import Link from "next/link";
 import { OtherTypes } from "../const";
+import { Space } from "antd";
 interface IProps {
   durationNum: string;
 }
@@ -12,7 +13,7 @@ export default function OtherTypeTimers (props: IProps) {
         <h2 className="text-2xl pb-2">{`Other Type ${props.durationNum} Minute Timer`}</h2>
         <section className="pl-4">
 
-          <span className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 place-items-center pt-2">
+          <Space wrap size={16} className=" place-items-center pt-2">
             {/* <HomeIcon />  */}
             {OtherTypes.map((item, index) => {
               const text = getLinkTitle({title: item?.title, durationNum: props.durationNum})
@@ -25,7 +26,7 @@ export default function OtherTypeTimers (props: IProps) {
                   {text}
                 </Link>
               })}
-          </span> 
+          </Space> 
         </section>
       </div>
   )

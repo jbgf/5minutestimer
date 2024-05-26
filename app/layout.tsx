@@ -8,6 +8,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Props } from "./type";
 import { generateMetadataFN } from "./server-util";
+import DevTKD from './server-component/dev-tdk';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +36,7 @@ export default function RootLayout({
       <AntdRegistry>{children}</AntdRegistry></body>
       </Wrapper>
       <GoogleAnalytics gaId="G-BFQB3H35VP" />
-
+      <DevTKD />
     </html>
   );
 }

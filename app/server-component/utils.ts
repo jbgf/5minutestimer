@@ -1,4 +1,4 @@
-import { addPathSuffix } from "../server-util"
+import { addPathSuffix } from "@/util"
 
 export const generateMeditationPath = (data: {durationNum: string}) => {
   const link = `/5-minute-meditation-timer/${data.durationNum}`

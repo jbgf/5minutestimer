@@ -5,7 +5,8 @@ import { Metadata, ResolvingMetadata } from 'next'
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
 import Template from "../server-component/template";
-import { addPathSuffix, generateMetadataFN, getPathSuffix } from "../server-util";
+import { generateMetadataFN, getPathSuffix } from "../server-util";
+import { addPathSuffix } from "@/util";
 dayjs.extend(duration);
 type Props = {
   params: { duration: string }

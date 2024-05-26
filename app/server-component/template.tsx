@@ -6,8 +6,8 @@ import { HomeModernIcon } from "@heroicons/react/24/solid";
 import HomeIcon from "../components/home-icon";
 import Link from "next/link";
 import { Dropdown } from "antd";
-import { DURATIONS, TimerTypes } from "../const";
-import { addPathSuffix, getPathSuffix } from "../server-util";
+import { TimerTypes } from "../const";
+
 import { generateHomePath, generateMeditationPath } from "./utils";
 import OtherTypeTimers from "./other-type-timer";
 import OtherDurationTimer from "./other-duration-timer";
