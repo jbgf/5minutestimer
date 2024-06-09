@@ -99,7 +99,7 @@ export default function Timer(props: IProps) {
           (props.noEndSound ? !props.hidePlayButton : true) && <div className="h-12 text-6xl relative z-10 flex justify-between items-center" >{
             !isCountingDown 
               ? <Button type="primary" disabled={audioDisabled} onClick={clickStart} title={`press enter to start`} >Start</Button>
-              : <Button type="primary" onClick={pause} >Pause</Button> }</div>
+              : <Button onClick={pause} >Pause</Button> }</div>
           }
           <Space align="center">
 
