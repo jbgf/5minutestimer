@@ -59,20 +59,51 @@ export default function Template(props: IProps) {
       <OtherTypeTimers durationNum={durationNum} />
     </main>
     
-    <article className="p-4 lg:p-24">
+      <article className="p-4 lg:p-24 prose prose-slate dark:prose-invert max-w-none">
       {props.type !== TimerTypes.Nap && (
-      <>
-        <h2 className="text-2xl pb-2">{`How to Use the ${durationNum} Minute Timer`}</h2>
-        <section className="pl-4">
-        <p className="underline text-gray-400">{`Our ${durationNum} minute timer is designed to be simple and effective for 
-        focused sessions of any task that requires brief time management.To use our 5 Minutes Timer, Here's how to get started:`}</p>
-        <ol className="text-gray-500 list-decimal pl-4">
-            <li><strong>Start the Countdown:</strong>{` You can start the ${durationNum} minute countdown by `}clicking the <strong>Play button</strong> on the screen.</li>
-            <li><strong>Stay Focused:</strong> While the timer counts down, dedicate your full attention to your task. The minimalistic design helps you stay focused without distractions.</li>
-            <li><strong>Toggle End-of-Timer Sound:</strong> If you prefer to have a sound alert when the timer ends, you can enable or disable this feature using the switch provided. The <strong>"End Sound On"</strong> setting will play a notification sound at the end of the countdown, while <strong>"End Sound Off"</strong> will keep the timer silent upon completion.</li>
-        </ol>
-        </section>
-      </>
+          <>
+            <h2 className="text-2xl font-bold mb-6">{`How to Use the ${durationNum} Minute Timer`}</h2>
+
+            <section className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-3">{`About ${durationNum} Minute Timer`}</h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {`Our ${durationNum} minute timer is designed to be simple and effective for 
+                focused sessions of any task that requires brief time management.`}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-3">Quick Start Guide</h3>
+                <ol className="text-gray-600 dark:text-gray-400 list-decimal pl-6 space-y-3">
+                  <li>
+                    <strong>Start the Countdown:</strong>
+                    {` You can start the ${durationNum} minute countdown by `}
+                    clicking the <strong>Play button</strong> on the screen.
+                  </li>
+                  <li>
+                    <strong>Stay Focused:</strong>
+                    While the timer counts down, dedicate your full attention to your task.
+                    The minimalistic design helps you stay focused without distractions.
+                  </li>
+                  <li>
+                    <strong>Toggle End-of-Timer Sound:</strong>
+                    If you prefer to have a sound alert when the timer ends, you can enable or
+                    disable this feature using the switch provided.
+                  </li>
+                </ol>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-3">Timer Features</h3>
+                <ul className="text-gray-600 dark:text-gray-400 list-disc pl-6 space-y-2">
+                  <li><strong>Clean Interface:</strong> Distraction-free design for better focus</li>
+                  <li><strong>Sound Alerts:</strong> Optional end-of-timer notification</li>
+                  <li><strong>Mobile Friendly:</strong> Works perfectly on all devices</li>
+                </ul>
+              </div>
+            </section>
+          </>
       )}
     </article>
 

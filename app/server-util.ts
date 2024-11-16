@@ -18,5 +18,8 @@ export async function generateMetadataFN(
   return {
     title: generateTitle({duration: durationNum}),
     description: generateDescription({'duration': durationNum}),
+    alternates: {
+      canonical: 'https://www.5minutetimer.app', // 请替换为您的实际域名
+    },
   }
 }
