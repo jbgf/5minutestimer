@@ -7,7 +7,7 @@ interface IProps {
   durationNum: string;
 }
 
-const TypeIcons = {
+const TypeIcons: Record<string, typeof ClockIcon> = {
   '': ClockIcon,
   'meditation': HeartIcon,
   'nap': MoonIcon,
