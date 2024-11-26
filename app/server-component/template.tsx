@@ -46,9 +46,9 @@ export default function Template(props: IProps) {
         </div>
         
       </header>
-    <main className="flex flex-col items-center lg:p-24 !pb-0 2xl:pt-80 flex-1">
+      <main className="flex flex-col items-center lg:p-24 !pb-0 2xl:pt-60 flex-1">
       
-      <div className="relative w-[365px] flex flex-col ">
+        <div className="relative w-[365px] flex flex-col mb-60">
           
         <Timer duration={Number(durationNum)} noEndSound={props.noEndSound} hidePlayButton={props.hidePlayButton} autoStart={autoStart} src={props.src} />
         
@@ -63,46 +63,88 @@ export default function Template(props: IProps) {
       {props.type !== TimerTypes.Nap && (
           <>
             <h2 className="text-2xl font-bold mb-6">{`How to Use the ${durationNum} Minute Timer`}</h2>
-
-            <section className="space-y-6">
-              <div>
+            <div className="space-y-6">
+              <div className="bg-white/5 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">{`About ${durationNum} Minute Timer`}</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  {`Our ${durationNum} minute timer is designed to be simple and effective for 
-                focused sessions of any task that requires brief time management.`}
+                  {`Our ${durationNum} minute timer is designed to be simple and effective for focused sessions of any task that requires brief time management. Whether you're taking a quick break, meditating, or following the Pomodoro Technique, this timer helps you stay on track.`}
                 </p>
               </div>
 
-              <div>
+              <div className="bg-white/5 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Quick Start Guide</h3>
-                <ol className="text-gray-600 dark:text-gray-400 list-decimal pl-6 space-y-3">
-                  <li>
-                    <strong>Start the Countdown:</strong>
-                    {` You can start the ${durationNum} minute countdown by `}
-                    clicking the <strong>Play button</strong> on the screen.
-                  </li>
-                  <li>
-                    <strong>Stay Focused:</strong>
-                    While the timer counts down, dedicate your full attention to your task.
-                    The minimalistic design helps you stay focused without distractions.
-                  </li>
-                  <li>
-                    <strong>Toggle End-of-Timer Sound:</strong>
-                    If you prefer to have a sound alert when the timer ends, you can enable or
-                    disable this feature using the switch provided.
-                  </li>
-                </ol>
+                <div className="text-gray-600 dark:text-gray-400">
+                  <ol className="list-decimal pl-6 space-y-3">
+                    <li>
+                      <strong>Start the Timer:</strong>
+                      {` Click the Play button to begin your ${durationNum}-minute countdown`}
+                    </li>
+                    <li>
+                      <strong>Focus on Your Task:</strong>
+                      {` Utilize these ${durationNum} minutes for focused work or relaxation`}
+                    </li>
+                    <li>
+                      <strong>Get Notified:</strong>
+                      {` When ${durationNum} minutes are up, you'll receive an alert (if enabled)`}
+                    </li>
+                  </ol>
+                </div>
               </div>
 
-              <div>
-                <h3 className="text-xl font-semibold mb-3">Timer Features</h3>
-                <ul className="text-gray-600 dark:text-gray-400 list-disc pl-6 space-y-2">
-                  <li><strong>Clean Interface:</strong> Distraction-free design for better focus</li>
-                  <li><strong>Sound Alerts:</strong> Optional end-of-timer notification</li>
-                  <li><strong>Mobile Friendly:</strong> Works perfectly on all devices</li>
-                </ul>
+              <div className="bg-white/5 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">Key Features</h3>
+                <div className="text-gray-600 dark:text-gray-400">
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li><strong>Simple Interface:</strong> Clean, distraction-free design</li>
+                    <li><strong>Customizable Alerts:</strong> Optional sound notifications</li>
+                    <li><strong>Device Friendly:</strong> Works on desktop and mobile devices</li>
+                    <li><strong>No Account Needed:</strong> Start using immediately</li>
+                  </ul>
+                </div>
               </div>
-            </section>
+            </div>
+
+            <h2 className="text-2xl font-bold mb-6 mt-12">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              <div className="bg-white/5 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">Why {durationNum} Minutes?</h3>
+                <div className="text-gray-600 dark:text-gray-400">
+                  <p className="mb-3">
+                    {durationNum} minutes is an optimal time interval that balances productivity with sustainability. It's:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>Long enough to achieve meaningful progress</li>
+                    <li>Short enough to maintain intense focus</li>
+                    <li>Perfect for quick breaks or meditation sessions</li>
+                    <li>Ideal for the popular Pomodoro Technique</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-white/5 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">Tips for Success</h3>
+                <div className="text-gray-600 dark:text-gray-400">
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li><strong>Prepare Your Space:</strong> Find a quiet, comfortable environment</li>
+                    <li><strong>Set Clear Goals:</strong> Know what you want to accomplish</li>
+                    <li><strong>Minimize Distractions:</strong> Put your phone on silent mode</li>
+                    <li><strong>Stay Consistent:</strong> Regular timing sessions build better habits</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-white/5 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">Technical Details</h3>
+                <div className="text-gray-600 dark:text-gray-400">
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li><strong>Precise Timing:</strong> Accurate to the second</li>
+                    <li><strong>Sound System:</strong> Clear, non-intrusive notifications</li>
+                    <li><strong>Offline Support:</strong> Works without internet connection</li>
+                    <li><strong>Zero Lag:</strong> Immediate response to your interactions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </>
       )}
     </article>

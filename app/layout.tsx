@@ -1,6 +1,5 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import React from 'react';
-import { Inspector } from 'react-dev-inspector'
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
@@ -8,7 +7,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Props } from "./type";
 import { generateMetadataFN } from "./server-util";
-import DevTKD from './server-component/dev-tdk';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,18 +23,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isDev = process.env.NODE_ENV === "development"
 
-  const Wrapper = isDev ? Inspector : React.Fragment;
 
   return (
     <html lang="en" className="overflow-x-hidden">
-      <Wrapper>
       <body className={inter.className + ` overflow-x-hidden min-h-screen flex flex-col justify-between`}>
-      <AntdRegistry>{children}</AntdRegistry></body>
-      </Wrapper>
+        <AntdRegistry>{children}</AntdRegistry></body>
       <GoogleAnalytics gaId="G-BFQB3H35VP" />
-      <DevTKD />
     </html>
   );
 }
