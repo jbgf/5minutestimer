@@ -9,7 +9,7 @@ export const generateTitle = (data: {duration: string, type?: TimerTypes}) => {
   }
   /* Clock, Stopwatch, Countdown to a date, set */
   
-  return `Simple ${data.duration} Minute Countdown Timer, Alarm`
+  return `${data.duration} minute timer`
 }
 
 export const generateDescription = (data: {duration: string, type?: TimerTypes}) => {
@@ -19,7 +19,7 @@ export const generateDescription = (data: {duration: string, type?: TimerTypes})
   if (data.type === TimerTypes.Nap) {
     return `Set a ${data.duration} minute nap timer to help you recharge quickly. Ideal for short breaks`
   }
-  return `Set a ${data.duration} minute countdown timer for your activities whether it's cooking, working, study breaks or relaxing`
+  return `A ${data.duration} minute timer, countdown, alarm for your activities whether it's cooking, working, study breaks or relaxing`
 }
 
 
