@@ -19,7 +19,7 @@ export const generateDescription = (data: {duration: string, type?: TimerTypes})
   if (data.type === TimerTypes.Nap) {
     return `Set a ${data.duration} minute nap timer to help you recharge quickly. Ideal for short breaks`
   }
-  return `A ${data.duration} minute timer, countdown, alarm for your activities whether it's cooking, working, study breaks or relaxing`
+  return `A ${data.duration} minute timer, countdown, alarm for your activities like cooking, working, study breaks or relaxing`
 }
 
 
